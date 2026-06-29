@@ -13,6 +13,10 @@ def test_meta_and_health(tmp_path):
     client = make_client(tmp_path)
 
     assert client.get("/api/health").json() == {"status": "ok"}
+    favicon = client.get("/favicon.ico")
+    assert favicon.status_code == 200
+    assert favicon.headers["content-type"] == "image/png"
+
     meta = client.get("/api/meta").json()
 
     assert "1교시" in meta["periods"]

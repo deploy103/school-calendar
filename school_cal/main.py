@@ -48,6 +48,10 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     async def index() -> FileResponse:
         return FileResponse(STATIC_DIR / "index.html")
 
+    @app.get("/favicon.ico", include_in_schema=False)
+    async def favicon() -> FileResponse:
+        return FileResponse(STATIC_DIR / "favicon.png", media_type="image/png")
+
     @app.get("/api/health")
     async def health() -> dict[str, str]:
         return {"status": "ok"}
