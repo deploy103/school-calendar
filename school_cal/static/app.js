@@ -132,8 +132,12 @@ function renderCalendar() {
 
   for (let day = 1; day <= daysInMonth; day += 1) {
     const dateText = formatDate(year, month, day);
+    const dayEvents = eventsForDate(dateText);
     const cell = document.createElement("div");
     cell.className = dateText === todayText ? "day-cell today" : "day-cell";
+    if (dayEvents.length > 0) {
+      cell.classList.add("has-events");
+    }
     cell.setAttribute("role", "button");
     cell.tabIndex = 0;
     cell.setAttribute("aria-label", `${formatDateLabel(dateText)} 일정 보기`);
@@ -170,8 +174,13 @@ function renderCalendar() {
 
     const list = document.createElement("div");
     list.className = "event-list";
-    eventsForDate(dateText).forEach((event) => list.append(renderEventChip(event)));
+    dayEvents.forEach((event) => list.append(renderEventChip(event)));
     cell.append(list);
+
+    const count = document.createElement("span");
+    count.className = "event-count";
+    count.textContent = `${dayEvents.length}개`;
+    cell.append(count);
 
     nodes.calendarGrid.append(cell);
   }

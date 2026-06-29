@@ -313,6 +313,10 @@ input:focus-visible {
   padding-right: 2px;
 }
 
+.event-count {
+  display: none;
+}
+
 .event-chip {
   display: block;
   width: 100%;
@@ -603,47 +607,137 @@ input::placeholder {
 }
 
 @media (max-width: 840px) {
+  body {
+    background-size: 28px 28px;
+  }
+
   .app-shell {
-    width: min(100% - 20px, 680px);
-    padding-top: 10px;
+    width: calc(100% - 16px);
+    padding: 8px 0 24px;
   }
 
   .topbar {
     align-items: stretch;
     flex-direction: column;
+    gap: 12px;
+    padding: 12px;
   }
 
   .topbar-actions {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     justify-content: stretch;
   }
 
   .meal-link,
-  .primary-button,
-  .month-switcher {
-    flex: 1 1 auto;
+  .primary-button {
+    min-height: 38px;
+    padding: 0 10px;
+    font-size: 13px;
   }
 
   .month-switcher {
-    grid-template-columns: 42px minmax(78px, 1fr) 42px;
+    grid-column: 1 / -1;
+    grid-row: 1;
+    grid-template-columns: 38px minmax(70px, 1fr) 38px;
+    min-height: 42px;
+  }
+
+  .month-switcher button {
+    min-height: 34px;
+    font-size: 24px;
   }
 
   .calendar-panel {
-    padding: 10px;
-    overflow-x: auto;
+    margin-top: 12px;
+    padding: 8px;
+    overflow: visible;
   }
 
   .weekday-row,
   .calendar-grid {
-    min-width: 680px;
+    min-width: 0;
+  }
+
+  .weekday-row {
+    margin-bottom: 5px;
+  }
+
+  .weekday-row span {
+    padding: 4px 0;
+    font-size: 11px;
+  }
+
+  .calendar-grid {
+    gap: 4px;
   }
 
   .blank-cell,
   .day-cell {
-    min-height: 104px;
+    min-height: 74px;
+  }
+
+  .day-cell {
+    padding: 5px;
+    border-radius: 7px;
+    position: relative;
+  }
+
+  .day-head {
+    gap: 4px;
+    margin-bottom: 4px;
+  }
+
+  .day-number {
+    width: 24px;
+    height: 24px;
+    border-radius: 7px;
+    font-size: 13px;
+  }
+
+  .add-day {
+    width: 24px;
+    height: 24px;
+    border-radius: 7px;
+    font-size: 17px;
+  }
+
+  .event-list {
+    gap: 3px;
+    overflow: hidden;
+    padding-right: 0;
+  }
+
+  .event-chip {
+    min-height: 6px;
+    padding: 0;
+    border-radius: 999px;
+  }
+
+  .event-period,
+  .event-title {
+    display: none;
+  }
+
+  .event-list .event-chip:nth-child(n + 4) {
+    display: none;
+  }
+
+  .event-count {
+    display: none;
+    margin-top: auto;
+    color: var(--accent-strong);
+    font-size: 10px;
+    font-weight: 900;
+    line-height: 1;
+  }
+
+  .has-events .event-count {
+    display: block;
   }
 
   .brand h1 {
-    font-size: 23px;
+    font-size: 22px;
   }
 
   .brand p {
@@ -656,14 +750,79 @@ input::placeholder {
     width: calc(100% - 16px);
   }
 
+  .calendar-panel {
+    padding: 6px;
+  }
+
+  .calendar-grid {
+    gap: 3px;
+  }
+
+  .blank-cell,
+  .day-cell {
+    min-height: 58px;
+  }
+
+  .day-cell {
+    padding: 3px;
+  }
+
   .brand-mark {
-    width: 42px;
-    height: 42px;
+    width: 38px;
+    height: 38px;
+    font-size: 13px;
+  }
+
+  .brand {
+    gap: 10px;
+  }
+
+  .brand h1 {
+    font-size: 20px;
+  }
+
+  .brand p {
+    font-size: 12px;
   }
 
   .topbar-actions {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .month-switcher {
+    grid-column: 1 / -1;
+  }
+
+  .day-number,
+  .add-day {
+    width: 18px;
+    height: 18px;
+    font-size: 11px;
+  }
+
+  .add-day {
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    font-size: 14px;
+  }
+
+  .day-head {
+    min-height: 18px;
+    margin-bottom: 3px;
+  }
+
+  .event-list {
+    gap: 2px;
+  }
+
+  .event-list .event-chip:nth-child(n + 3) {
+    display: none;
+  }
+
+  .event-count {
+    font-size: 9px;
   }
 
   .segmented-grid {
