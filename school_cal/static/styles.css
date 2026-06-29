@@ -186,7 +186,8 @@ input:focus-visible {
 }
 
 .month-switcher button,
-.icon-button {
+.icon-button,
+.add-day {
   display: grid;
   place-items: center;
   color: var(--muted-strong);
@@ -290,8 +291,6 @@ input:focus-visible {
 }
 
 .add-day {
-  display: grid;
-  place-items: center;
   width: 28px;
   height: 28px;
   border: 1px solid var(--line);
@@ -341,9 +340,15 @@ input:focus-visible {
   display: block;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
+  display: -webkit-box;
   font-size: 13px;
   font-weight: 800;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-height: 1.25;
+  white-space: normal;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
 }
 
 .tone-rose {
@@ -417,6 +422,10 @@ input:focus-visible {
   box-shadow: var(--shadow);
 }
 
+.detail-modal {
+  width: min(620px, 100%);
+}
+
 .modal-header {
   display: flex;
   align-items: flex-start;
@@ -442,6 +451,62 @@ input:focus-visible {
   margin-top: 4px;
   color: #ffffff;
   font-size: 22px;
+}
+
+.detail-body {
+  padding: 18px;
+}
+
+.detail-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.detail-event {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 6px;
+  padding: 14px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  color: #ffffff;
+  text-align: left;
+}
+
+.detail-event:hover {
+  filter: brightness(1.08);
+}
+
+.detail-event-meta {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.detail-event-title {
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 900;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+  word-break: keep-all;
+}
+
+.empty-detail {
+  margin: 0 0 16px;
+  padding: 24px 14px;
+  border: 1px dashed var(--line);
+  border-radius: 8px;
+  color: var(--muted);
+  text-align: center;
+  font-weight: 800;
+}
+
+.detail-add-button {
+  width: 100%;
 }
 
 .event-form {
@@ -603,6 +668,10 @@ input::placeholder {
 
   .segmented-grid {
     grid-template-columns: 1fr;
+  }
+
+  .detail-event-title {
+    font-size: 15px;
   }
 
   .modal-backdrop {

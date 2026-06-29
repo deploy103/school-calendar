@@ -45,6 +45,24 @@
       <div class="legend" id="legend"></div>
     </div>
 
+    <div class="modal-backdrop" id="dayDetailModal" hidden>
+      <section class="modal detail-modal" role="dialog" aria-modal="true" aria-labelledby="dayDetailTitle">
+        <header class="modal-header">
+          <div>
+            <p id="dayDetailDateLabel">-</p>
+            <h2 id="dayDetailTitle">일정 보기</h2>
+          </div>
+          <button type="button" class="icon-button" id="closeDayDetailModal" aria-label="닫기">×</button>
+        </header>
+
+        <div class="detail-body">
+          <div class="detail-list" id="dayDetailList"></div>
+          <p class="empty-detail" id="dayDetailEmpty" hidden>등록된 일정이 없습니다.</p>
+          <button type="button" class="primary-button detail-add-button" id="dayDetailAddButton">+ 일정 추가</button>
+        </div>
+      </section>
+    </div>
+
     <div class="modal-backdrop" id="eventModal" hidden>
       <section class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
         <header class="modal-header">
