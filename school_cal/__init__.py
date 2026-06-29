@@ -1,0 +1,1 @@
+"""School calendar application package."""
