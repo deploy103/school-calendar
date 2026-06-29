@@ -49,11 +49,16 @@ class EventPatch(BaseModel):
     type: EventType | None = None
     title: str | None = Field(default=None, min_length=1, max_length=80)
 
+    @field_validator("date", "period", "type", "title", mode="before")
+    @classmethod
+    def fields_must_not_be_null(cls, value: object) -> object:
+        if value is None:
+            raise ValueError("field must not be null")
+        return value
+
     @field_validator("title")
     @classmethod
-    def title_must_be_visible_text(cls, value: str | None) -> str | None:
-        if value is None:
-            return None
+    def title_must_be_visible_text(cls, value: str) -> str:
         return normalize_title(value)
 
 
