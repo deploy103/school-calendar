@@ -177,10 +177,23 @@ function renderCalendar() {
     dayEvents.forEach((event) => list.append(renderEventChip(event)));
     cell.append(list);
 
-    const count = document.createElement("span");
-    count.className = "event-count";
-    count.textContent = `${dayEvents.length}개`;
-    cell.append(count);
+    const wideHiddenCount = Math.max(dayEvents.length - 3, 0);
+    if (wideHiddenCount > 0) {
+      const count = document.createElement("span");
+      count.className = "event-count event-count-wide";
+      count.textContent = `+${wideHiddenCount}`;
+      count.setAttribute("aria-label", `숨겨진 일정 ${wideHiddenCount}개 더 보기`);
+      cell.append(count);
+    }
+
+    const narrowHiddenCount = Math.max(dayEvents.length - 2, 0);
+    if (narrowHiddenCount > 0) {
+      const count = document.createElement("span");
+      count.className = "event-count event-count-narrow";
+      count.textContent = `+${narrowHiddenCount}`;
+      count.setAttribute("aria-label", `숨겨진 일정 ${narrowHiddenCount}개 더 보기`);
+      cell.append(count);
+    }
 
     nodes.calendarGrid.append(cell);
   }
@@ -190,9 +203,11 @@ function renderEventChip(event) {
   const chip = document.createElement("button");
   chip.type = "button";
   chip.className = `event-chip tone-${toneForType(event.type)}`;
+  chip.setAttribute("aria-label", `${formatDateLabel(event.date)} ${event.period} ${event.title} 일정 보기`);
+  chip.title = `${event.period} ${event.title}`;
   chip.addEventListener("click", (eventObject) => {
     eventObject.stopPropagation();
-    openEditModal(event);
+    openDayDetailModal(event.date);
   });
 
   const period = document.createElement("span");
@@ -208,13 +223,11 @@ function renderEventChip(event) {
 }
 
 function renderDayDetailItem(event) {
-  const item = document.createElement("button");
-  item.type = "button";
+  const item = document.createElement("article");
   item.className = `detail-event tone-${toneForType(event.type)}`;
-  item.addEventListener("click", () => {
-    closeDayDetailModal();
-    openEditModal(event);
-  });
+
+  const summary = document.createElement("div");
+  summary.className = "detail-event-summary";
 
   const meta = document.createElement("span");
   meta.className = "detail-event-meta";
@@ -224,7 +237,18 @@ function renderDayDetailItem(event) {
   title.className = "detail-event-title";
   title.textContent = event.title;
 
-  item.append(meta, title);
+  const editButton = document.createElement("button");
+  editButton.type = "button";
+  editButton.className = "detail-edit-button";
+  editButton.textContent = "수정";
+  editButton.setAttribute("aria-label", `${event.title} 일정 수정`);
+  editButton.addEventListener("click", () => {
+    closeDayDetailModal();
+    openEditModal(event);
+  });
+
+  summary.append(meta, title);
+  item.append(summary, editButton);
   return item;
 }
 

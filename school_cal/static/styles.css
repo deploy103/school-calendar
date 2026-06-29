@@ -320,6 +320,7 @@ input:focus-visible {
 .event-chip {
   display: block;
   width: 100%;
+  min-width: 0;
   padding: 7px 8px;
   border: 1px solid transparent;
   border-radius: 8px;
@@ -471,8 +472,9 @@ input:focus-visible {
 .detail-event {
   display: flex;
   width: 100%;
-  flex-direction: column;
-  gap: 6px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
   padding: 14px;
   border: 1px solid transparent;
   border-radius: 8px;
@@ -480,7 +482,15 @@ input:focus-visible {
   text-align: left;
 }
 
-.detail-event:hover {
+.detail-event-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.detail-event:hover,
+.detail-edit-button:hover {
   filter: brightness(1.08);
 }
 
@@ -497,6 +507,18 @@ input:focus-visible {
   line-height: 1.45;
   overflow-wrap: anywhere;
   word-break: keep-all;
+}
+
+.detail-edit-button {
+  flex: 0 0 auto;
+  min-height: 38px;
+  padding: 0 14px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 900;
 }
 
 .empty-detail {
@@ -674,7 +696,7 @@ input::placeholder {
 
   .blank-cell,
   .day-cell {
-    min-height: 74px;
+    min-height: 104px;
   }
 
   .day-cell {
@@ -704,19 +726,30 @@ input::placeholder {
 
   .event-list {
     gap: 3px;
-    overflow: hidden;
+    overflow: visible;
     padding-right: 0;
   }
 
   .event-chip {
-    min-height: 6px;
-    padding: 0;
-    border-radius: 999px;
+    min-height: 20px;
+    padding: 3px 4px;
+    border-radius: 6px;
   }
 
-  .event-period,
-  .event-title {
+  .event-period {
     display: none;
+  }
+
+  .event-title {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 10px;
+    line-height: 1.2;
+    white-space: nowrap;
+    word-break: keep-all;
+    overflow-wrap: normal;
+    -webkit-line-clamp: unset;
   }
 
   .event-list .event-chip:nth-child(n + 4) {
@@ -724,7 +757,6 @@ input::placeholder {
   }
 
   .event-count {
-    display: none;
     margin-top: auto;
     color: var(--accent-strong);
     font-size: 10px;
@@ -732,8 +764,12 @@ input::placeholder {
     line-height: 1;
   }
 
-  .has-events .event-count {
+  .event-count-wide {
     display: block;
+  }
+
+  .event-count-narrow {
+    display: none;
   }
 
   .brand h1 {
@@ -742,6 +778,17 @@ input::placeholder {
 
   .brand p {
     font-size: 13px;
+  }
+
+  .day-detail-backdrop {
+    place-items: end center;
+    padding: 10px;
+  }
+
+  .day-detail-backdrop .detail-modal {
+    width: 100%;
+    max-height: min(75vh, 680px);
+    border-radius: 8px 8px 0 0;
   }
 }
 
@@ -760,7 +807,7 @@ input::placeholder {
 
   .blank-cell,
   .day-cell {
-    min-height: 58px;
+    min-height: 92px;
   }
 
   .day-cell {
@@ -821,8 +868,21 @@ input::placeholder {
     display: none;
   }
 
+  .event-chip {
+    min-height: 19px;
+    padding: 3px;
+  }
+
   .event-count {
     font-size: 9px;
+  }
+
+  .event-count-wide {
+    display: none;
+  }
+
+  .event-count-narrow {
+    display: block;
   }
 
   .segmented-grid {
@@ -831,6 +891,15 @@ input::placeholder {
 
   .detail-event-title {
     font-size: 15px;
+  }
+
+  .detail-event {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .detail-edit-button {
+    width: 100%;
   }
 
   .modal-backdrop {
