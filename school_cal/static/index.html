@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>우리 반 일정</title>
+    <link rel="stylesheet" href="/assets/styles.css">
+    <script src="/assets/app.js" defer></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true">Cal</div>
+          <div>
+            <h1>우리 반 일정</h1>
+            <p>수행평가와 특수수업을 한 달 안에서 바로 관리합니다.</p>
+          </div>
+        </div>
+
+        <div class="topbar-actions">
+          <a class="meal-link" id="mealLink" href="/today-rice">오늘 급식</a>
+          <div class="month-switcher" aria-label="월 이동">
+            <button type="button" id="prevMonth" aria-label="이전 달">‹</button>
+            <strong id="monthLabel">-</strong>
+            <button type="button" id="nextMonth" aria-label="다음 달">›</button>
+          </div>
+          <button type="button" class="primary-button" id="quickAddButton">일정 추가</button>
+        </div>
+      </header>
+
+      <main class="calendar-panel" aria-label="학급 일정 캘린더">
+        <div class="weekday-row" aria-hidden="true">
+          <span class="sun">일</span>
+          <span>월</span>
+          <span>화</span>
+          <span>수</span>
+          <span>목</span>
+          <span>금</span>
+          <span class="sat">토</span>
+        </div>
+        <div class="calendar-grid" id="calendarGrid"></div>
+      </main>
+
+      <div class="legend" id="legend"></div>
+    </div>
+
+    <div class="modal-backdrop" id="eventModal" hidden>
+      <section class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <header class="modal-header">
+          <div>
+            <p id="selectedDateLabel">-</p>
+            <h2 id="modalTitle">새 일정 추가</h2>
+          </div>
+          <button type="button" class="icon-button" id="closeModal" aria-label="닫기">×</button>
+        </header>
+
+        <form id="eventForm" class="event-form">
+          <fieldset>
+            <legend>일정 종류</legend>
+            <div class="segmented-grid" id="typeOptions"></div>
+          </fieldset>
+
+          <fieldset>
+            <legend>교시</legend>
+            <div class="period-grid" id="periodOptions"></div>
+          </fieldset>
+
+          <label class="field-label" for="eventTitle">상세 내용</label>
+          <input id="eventTitle" name="title" type="text" maxlength="80" autocomplete="off" required placeholder="예: 수학 2단원 수행평가">
+
+          <div class="modal-actions">
+            <button type="button" class="danger-button" id="deleteButton" hidden>삭제</button>
+            <button type="submit" class="primary-button" id="saveButton">저장</button>
+          </div>
+        </form>
+      </section>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+  </body>
+</html>
